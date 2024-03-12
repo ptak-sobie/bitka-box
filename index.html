@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <title>Home</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+
+  <body>
+
+    <!--Top Controls-->
+    <div id="topControls">
+      <button id="loadPCs">Load PC's</button>
+      <button id="managePCs">Manage PC's</button>
+      <button id="nextTurn">Next Turn</button>
+      <span id="roundLabel">Current Round: </span>
+      <span id="round">0</span>
+      <br><label for="creatures-dropdown">Add Creature:</label>
+
+      <!--Creatures Dropdown-->
+      <select id="creatures-dropdown" name="creaturesDropdown">
+        <option class="crOption">Select...</option>
+        <option class="crOption">Red Dragon</option>
+        <option class="crOption">Green Dragon</option>
+        <option class="crOption">Blue Dragon</option>
+        <option class="crOption">Gold Dragon</option>
+      </select>
+      <div id="chosenCr" style="display:none">selected</div>
+
+    </div>
+
+    <!--Encounter Creatures Container-->
+    <div id="creatures"></div>
+
+  </body>
+</html>
