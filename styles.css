@@ -1,0 +1,16 @@
+div {
+  margin-bottom: 25px;
+}
+
+.creature {
+  width: fit-content
+}
+
+.creature > table, .creature > th{
+  border: 1px solid blue;
+  border-collapse: collapse;
+}
+
+th {
+  padding: 5px;
+}
