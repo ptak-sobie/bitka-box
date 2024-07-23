@@ -154,7 +154,10 @@ populateCrHeader();
 //Reset Encounter
 document.getElementById('reset').addEventListener('click', function(e) {
   while (crs.children.length > 0) {
-    crs.removeChild(crs.children.item(0));
+    let cr = crs.children.item(0);
+    if (cr != header) {
+      crs.removeChild(cr);
+    }
   }
   document.getElementById('round').textContent = '0';
   document.getElementById('turnIndex').textContent = '0';
@@ -642,6 +645,11 @@ function populateCrCells(which,crDiv) {
   cell = crDiv.getElementsByClassName('coreCell')[notesIndex];
   cell.classList.add('notesCell');
   cell.appendChild(inp);
+  inp.addEventListener('keydown',function(e) {
+    if (e.key == 'Enter') {
+      this.blur();
+    }
+  });
   
   switch (which) {
     case 'mon': {
