@@ -1,0 +1,14 @@
+NOW
+> 
+
+LONG TERM
+> Make rolls per creature!
+> Drag and Drop
+> Right click Menu!
+    > Add Legendary action
+    > ...?
+> Load Actual Statblocks with Images? iFrame? Scrape D&DB?
+> Hosting & Posting
+> Formatting
+    > Advanced, pretty formatting
+>Implement jquery?

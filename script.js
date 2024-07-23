@@ -338,7 +338,7 @@ function makeAutofill(inp,arr) {
         currentFocus--;
         /*and and make the current item more visible:*/
         addActive(x);
-      } else if (e.key == "Enter") {
+      } else if (e.key == 'Enter') {
         /*If the ENTER key is pressed, prevent the form from being submitted,*/
         e.preventDefault();
         if (currentFocus > -1) {
@@ -461,6 +461,7 @@ function addCreature(which,crName) {
 
   //assign element properties & classes
   setCreatureProps(crDiv,which,obj);
+
   //populate cells
   populateCrCells(which,crDiv);
 
@@ -469,7 +470,7 @@ function addCreature(which,crName) {
   sortByInit();
 
   //spell slots 
-  addSlots(crDiv);
+  if (which == 'mon') {addSlots(crDiv);}
 
   //add legendary actions
   if (obj.legActs != 0) {addLegs(crDiv);}
@@ -584,7 +585,7 @@ function addSlots(crDiv) {
     });
   }
 
-  
+
 }
 
 //generate a unique element id
@@ -633,6 +634,15 @@ function getStatblock(which,crName) {
 //populate the cells of a new '.creature' div.
 //@param {Element} crDiv - the div element to modify.
 function populateCrCells(which,crDiv) {
+
+  //notes
+  let inp = document.createElement('input');
+  setAttributes(inp,[['type','text'],['placeholder','...']]);
+  inp.style.width = 'minMax(70,auto)';
+  cell = crDiv.getElementsByClassName('coreCell')[notesIndex];
+  cell.classList.add('notesCell');
+  cell.appendChild(inp);
+  
   switch (which) {
     case 'mon': {
       
@@ -640,24 +650,24 @@ function populateCrCells(which,crDiv) {
       
       let cell = crDiv.getElementsByClassName('coreNug')[initIndex];  //init
       cell.textContent = crDiv.dataset.init;
-      cell.classList.add('initNug');               
+      cell.classList.add('initCell');               
       makeEditable('init',cell);
       cell = crDiv.getElementsByClassName('coreNug')[nameIndex];      //name
       cell.textContent = crDiv.dataset.name;       
-      cell.classList.add('nameNug');         
+      cell.classList.add('nameCell');         
       makeEditable('name',cell);
       cell = crDiv.getElementsByClassName('coreNug')[hpIndex];        //HP
       cell.textContent = `HP: ${crDiv.dataset.currentHp}`;  
-      cell.classList.add('hpNug'); 
+      cell.classList.add('hpCell'); 
       //don't make HP editable, use damage input cell.
       cell = crDiv.getElementsByClassName('coreNug')[acIndex];        //AC
       cell.textContent = `AC: ${crDiv.dataset.ac}`;     
-      cell.classList.add('acNug');     
+      cell.classList.add('acCell');     
       makeEditable('ac',cell);
       if (crDiv.dataset.regen == 'true') {
         cell = crDiv.getElementsByClassName('crCell')[regenIndex];     //regen
         let box = createCheckbox('checked');
-        box.classList.add('coreNug','regenNug');
+        box.classList.add('coreNug','regenCell');
         cell.appendChild(box);
         cell.classList.add('centerAlign');
       }
@@ -665,11 +675,11 @@ function populateCrCells(which,crDiv) {
       //Damage Input
       
       let dmgInp = document.createElement('input');
-      dmgInp.classList.add('coreNug','dmgNug');
+      dmgInp.classList.add('coreNug','dmgCell');
       setAttributes(dmgInp, [['type', 'text'], ['class', 'damageInput'], ['placeholder', 'dmg']]);
       dmgInp.style.width = `40px`;
       dmgInp.addEventListener('keydown', function (e) {
-        if (e.key == "Enter") {
+        if (e.key == 'Enter') {
           e.preventDefault();
           let dmg = parseInt(this.value);
           let cr = this.closest('.creature');
@@ -689,13 +699,12 @@ function populateCrCells(which,crDiv) {
       cell = crDiv.getElementsByClassName('coreCell')[dmgIndex];
       cell.classList.remove('coreNug');
       cell.appendChild(dmgInp);
-      cell.classList.add('centerAlign');
 
       //Legendary Resistances
       if (parseInt(crDiv.dataset.legRes) > 0) {
         let legResButton = document.createElement('button');
         legResButton.textContent = parseInt(crDiv.dataset.legRes);
-        legResButton.classList.add('coreNug','legResNug');
+        legResButton.classList.add('coreNug','legResCell');
         legResButton.addEventListener('click', function (e) {
           this.textContent = (parseInt(this.textContent) - 1).toString();
           if (parseInt(this.textContent) < 0) {
@@ -706,38 +715,32 @@ function populateCrCells(which,crDiv) {
         cell.classList.remove('coreNug');
         cell.appendChild(legResButton);
         cell.classList.add('centerAlign');
-      }
-
-      //notes
-      let inp = document.createElement('input');
-      setAttributes(inp,[['type','text'],['placeholder','...']]);
-      inp.style.width = 'minMax(70,auto)';
-      cell = crDiv.getElementsByClassName('coreCell')[notesIndex];
-      cell.appendChild(inp);
-      
+      }     
 
       break;
     }
 
 
     case 'pc': {
+      
       let cell;
+
       //init
       cell = crDiv.getElementsByClassName('coreNug')[initIndex];
       cell.textContent = crDiv.dataset.init;
-      cell.classList.add('initNug');
+      cell.classList.add('initCell');
       makeEditable('init',cell);
       
       //name
       cell = crDiv.getElementsByClassName('coreNug')[nameIndex];
       cell.textContent = crDiv.dataset.name;
-      cell.classList.add('nameNug');
+      cell.classList.add('nameCell');
       makeEditable('name',cell);
 
       //ac
       cell = crDiv.getElementsByClassName('coreNug')[acIndex];
       cell.textContent = `AC: ${crDiv.dataset.ac}`;
-      cell.classList.add('acNug');
+      cell.classList.add('acCell');
       makeEditable('ac',cell);
       cell.classList.add('combined');
 
@@ -755,7 +758,15 @@ function populateCrCells(which,crDiv) {
       });
       cell = crDiv.getElementsByClassName('coreCell')[dmgIndex];
       cell.appendChild(butt);
-      cell.classList.add('centerAlign','skullCell');
+      cell.classList.add('skullCell');
+
+      //remove monster cells
+      let hpCell = crDiv.getElementsByClassName('coreNug')[hpIndex];
+      let legResCell = crDiv.getElementsByClassName('coreNug')[legResIndex];
+      let regenCell = crDiv.getElementsByClassName('coreNug')[regenIndex];
+      hpCell.remove();
+      regenCell.remove();
+      legResCell.remove();
     }
   }
 }
@@ -847,7 +858,7 @@ function updateNick(stolik,newNick) {
   let legs = crs.getElementsByClassName('leg');
   for (let i=0;i<legs.length;i++) {
     if (legs[i].dataset.source == stolik.id) {
-      legs[i].getElementsByClassName('legNickNug')[0].textContent = `${newNick} Legendary Action`;
+      legs[i].getElementsByClassName('legNickCell')[0].textContent = `${newNick} Legendary Action`;
     }
   }
 }
@@ -917,7 +928,7 @@ function changeToInput(which,nug) {
     //init
     case 'init': {
       newInp.addEventListener('keydown', function (e) {
-        if (e.key == "Enter") {
+        if (e.key == 'Enter') {
           this.closest('.hasInit').dataset.init = this.value;
           changeFromInput(this);
           sortByInit();
@@ -932,7 +943,7 @@ function changeToInput(which,nug) {
     //name
     case 'name': {
         newInp.addEventListener('keydown', function (e) {
-          if (e.key == "Enter") {
+          if (e.key == 'Enter') {
             updateNick(this.closest('.creature'), this.value);
             changeFromInput(this);
           }
@@ -946,7 +957,7 @@ function changeToInput(which,nug) {
     case 'ac': {
       newInp.value = newInp.value.substring(4);
       newInp.addEventListener('keydown', function (e) {
-        if (e.key == "Enter") {
+        if (e.key == 'Enter') {
           this.closest('.creature').dataset.ac = this.value;
           this.value = `AC: ${this.value}`;
           changeFromInput(this);
