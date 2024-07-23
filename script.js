@@ -153,11 +153,8 @@ populateCrHeader();
 
 //Reset Encounter
 document.getElementById('reset').addEventListener('click', function(e) {
-  while (crs.children.length > 0) {
-    let cr = crs.children.item(0);
-    if (cr != header) {
-      crs.removeChild(cr);
-    }
+  while (crs.children.length > 1) {
+      crs.removeChild(crs.children.item(1));
   }
   document.getElementById('round').textContent = '0';
   document.getElementById('turnIndex').textContent = '0';
