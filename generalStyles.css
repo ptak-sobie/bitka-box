@@ -1,0 +1,7 @@
+.centerAlign {
+    text-align: center;
+}
+  
+button, input {
+    display: inline-block;
+}

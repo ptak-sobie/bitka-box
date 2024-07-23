@@ -1,0 +1,21 @@
+/*/////////////// Menus ///////////////*/
+
+#creaturesHeader {
+  margin-bottom: 10px;
+  border-collapse: collapse;
+}
+
+#creaturesHeader .crCell {
+  font-weight: bold;
+}
+
+#pcs {
+  border: 1px solid black; 
+  border-collapse: collapse;
+  width: fit-content;
+  margin-bottom: 25px;
+}
+
+#pcs td {
+  border: 1px solid black;
+}

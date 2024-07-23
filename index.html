@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <title>Bitka Box</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="generalStyles.css" />
+    <link rel="stylesheet" href="menuStyles.css" />
+    <link rel="stylesheet" href="creatureStyles.css" />
+    <link rel="stylesheet" href="autofillStyles.css" />
+    <script src="script.js" defer></script>
+  </head>
+
+  <body>
+
+    <!--Top Controls-->
+    <div id="topControls" style="margin-bottom: 20px">
+      <button id="reset">Reset Encounter</button>
+      <button id="loadPCs">Load PC's</button>
+      <button id="managePCs">Manage PC's</button>
+      <button id="nextTurn">Next Turn</button>
+      <span style="border: solid 1px black; margin-right: 5px">
+        <span id="roundLabel">Current Round: </span>
+        <span id="round">0</span>
+      </span>
+      <span id="turnIndex" style="display:none">0</span>
+      <label for="creatures-dropdown">Add Mon to Encounter:</label>
+
+      <!--New Monster-->
+      <div id="newMonsterContainer" class="autofill" style="width:300px;margin-top:10px;">
+        <input type="text" id="newMonster" placeholder="Start Typing..."> 
+      </div>
+
+    </div>
+
+    <!--PC's Menu-->
+    <table id="pcs" style="display:none; margin-bottom: 20px;">
+      <tr>
+        <th>Name</th>
+        <th>AC</th>
+        <th>Active?</th>
+        <th>Delete</th>
+      </tr>
+      <tr id="pcInputRow">
+        <td><input type="text" id="newPC" placeholder="New PC"></td>
+        <td><input type="text" id="ac" placeholder="AC"></td>
+        <td><button id="saveNewPC">Save</button></td>
+        <td><button id="clearNewPC">💀</button></td>
+      </tr>
+      <tr>
+        <td><button id="closePCs">Close</button></td>
+      </tr>
+    </table> 
+
+    <!--Creatures Container-->
+    <div id="creatures">
+      <div id="creaturesHeader"></div>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,46 @@
+GENERAL NOTES:
+
+- 'Nug' is short for 'nugget'. It refers to a nugget of content, an HTML element that contains actual material,
+as opposed to an HTML element that is purely structural or peripheral, like containers or labels. As a general rule,
+nugget elements should not have children elements, especially not other nuggets. A nugget should be the pearl of
+actual content at the deepest layer of nested elements. 
+
+- Arrays of spell-slot quantities use the actual index to represent the spell level, so the first element
+of such an array should always be 0 (because you can't have zero-level spell slots, but we want them
+all to be integers for consistency).
+
+Exclusive Dataset Properties by Class:
+(props included in higher order not repeated)
+> 'creature'
+  > init
+  > name
+  > nick
+  > ac
+> 'monster'
+  > maxHp
+  > currentHp
+  > legs
+  > legRes
+  > l[n] (spell slots: where [n] is the numbers 1-5)
+> 'pc'
+  >
+> 'leg'
+  > init
+  > source
+
+Cell Indices:
+> Monster: 
+  0 - init
+  1 - name
+  2 - currentHp
+  3 - ac
+  4 - Damage Input
+> PC:
+  0 - init
+  1 - name
+  2 - ac
+
+ 
+GLOSSARY
+
+regen : regenerative ability, also called recharge ability
